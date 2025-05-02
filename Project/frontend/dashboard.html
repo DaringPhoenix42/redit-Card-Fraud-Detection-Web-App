@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureScan - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <style>
+        body { background: #f8f9fa; }
+        .main-card { max-width: 1200px; margin: 40px auto; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); background: #fff; }
+        .footer { background: #fff; border-top: 1px solid #eee; padding: 1rem 0; text-align: center; color: #888; margin-top: 2rem; }
+        .navbar-brand .bi { font-size: 1.3rem !important; }
+        .navbar-brand { font-size: 1.5rem !important; padding-top: 0.2rem; padding-bottom: 0.2rem; }
+        .navbar { padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; }
+        .hero-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.7rem; }
+        .hero-lead { font-size: 1.1rem; margin-bottom: 1.2rem; }
+        .stats-card, .chart-card { background: #f8f9fa; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 2rem 1.5rem; margin-top: 1.5rem; }
+        .stat-card { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); height: 100%; }
+        .stat-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .stat-value { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .stat-label { color: #6c757d; font-size: 0.9rem; }
+        .chart-container { position: relative; height: 300px; margin-top: 1rem; }
+        #backToTop { display:none; position:fixed; bottom:30px; right:30px; z-index:1050; background:#0d6efd; color:#fff; border:none; border-radius:50%; width:44px; height:44px; font-size:1.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.12); }
+        #backToTop:hover { background:#0b5ed7; }
+        #spinnerOverlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.7); z-index:2000; align-items:center; justify-content:center; }
+        @media (max-width: 992px) {
+            .main-card { padding: 1.2rem 0.5rem !important; }
+            .hero-title { font-size: 1.5rem; }
+            .stats-card, .chart-card { padding: 1rem 0.5rem; }
+            .stat-value { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand brand d-flex align-items-center">
+                <i class="bi bi-shield-lock-fill me-2" style="font-size: 1.3rem; color: #0d6efd;" aria-label="SecureScan logo"></i>
+                <span>SecureScan</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="smart_usage.html">Smart Usage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fraud_explained.html">Fraud Explained</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_score.html">Credit Score Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="check.html">Check Transaction</a></li>
+                    <li class="nav-item"><a class="nav-link" href="batch.html">Batch Upload</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_faq.html">Credit Card FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-card p-4">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-4">
+            <div class="col-md-8">
+                <h1 class="hero-title mb-2">Fraud Detection Dashboard</h1>
+                <p class="hero-lead">Monitor fraud patterns, analyze trends, and track detection performance with real-time statistics and insights.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="bi bi-graph-up" style="font-size:3.5rem;color:#0d6efd;"></i>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-card">
+            <h5 class="mb-4"><i class="bi bi-bar-chart me-2"></i>Key Statistics</h5>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon text-primary">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <div class="stat-value" id="totalTransactions">0</div>
+                        <div class="stat-label">Total Transactions</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon text-danger">
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-value" id="fraudCount">0</div>
+                        <div class="stat-label">Fraudulent Transactions</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon text-success">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="stat-value" id="safeCount">0</div>
+                        <div class="stat-label">Safe Transactions</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-icon text-info">
+                            <i class="bi bi-percent"></i>
+                        </div>
+                        <div class="stat-value" id="fraudRate">0%</div>
+                        <div class="stat-label">Fraud Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="chart-card">
+                    <h5 class="mb-4"><i class="bi bi-pie-chart me-2"></i>Fraud Distribution</h5>
+                    <div class="chart-container">
+                        <canvas id="fraudDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-card">
+                    <h5 class="mb-4"><i class="bi bi-bar-chart-line me-2"></i>Fraud Trends</h5>
+                    <div class="chart-container">
+                        <canvas id="fraudTrendsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="chart-card">
+                    <h5 class="mb-4"><i class="bi bi-geo-alt me-2"></i>Geographic Distribution</h5>
+                    <div class="chart-container">
+                        <canvas id="geographicChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="footer">&copy; 2024 SecureScan. All rights reserved.</div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+    <!-- Spinner Overlay -->
+    <div id="spinnerOverlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.7); z-index:2000; align-items:center; justify-content:center;">
+      <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+    </div>
+    <button id="backToTop" title="Back to Top" onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="bi bi-arrow-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function showSpinner(show=true) {
+      var spinner = document.getElementById('spinnerOverlay');
+      if (spinner) spinner.style.display = show ? 'flex' : 'none';
+    }
+    function showToast(message, type = 'info') {
+        const toastId = 'toast' + Date.now();
+        const icon = type === 'success' ? 'bi-check-circle-fill' : type === 'error' ? 'bi-exclamation-triangle-fill' : 'bi-info-circle-fill';
+        const bg = type === 'success' ? 'bg-success' : type === 'error' ? 'bg-danger' : 'bg-primary';
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center text-white ${bg}`;
+        toast.id = toastId;
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi ${icon} me-2"></i>${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+        document.getElementById('toastContainer').appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast, { delay: 3500 });
+        bsToast.show();
+        toast.addEventListener('hidden.bs.toast', () => toast.remove());
+    }
+    // Back to Top logic
+    window.addEventListener('scroll', function() {
+      document.getElementById('backToTop').style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+    // Enable Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Chart configurations
+    const fraudDistributionChart = new Chart(
+        document.getElementById('fraudDistributionChart'),
+        {
+            type: 'pie',
+            data: {
+                labels: ['Safe', 'Fraud'],
+                datasets: [{
+                    data: [0, 0],
+                    backgroundColor: ['#198754', '#dc3545']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    datalabels: {
+                        formatter: (value, context) => {
+                            const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            const percent = total ? (value / total * 100).toFixed(1) : 0;
+                            return percent + '%';
+                        },
+                        color: '#222',
+                        font: { weight: 'bold' }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        }
+    );
+
+    const fraudTrendsChart = new Chart(
+        document.getElementById('fraudTrendsChart'),
+        {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Fraud Rate',
+                    data: [],
+                    borderColor: '#dc3545',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        // No max, no percent sign
+                    }
+                }
+            }
+        }
+    );
+
+    const geographicChart = new Chart(
+        document.getElementById('geographicChart'),
+        {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Fraud Rate by Country',
+                    data: [],
+                    backgroundColor: '#0d6efd'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        // No max, no percent sign
+                    }
+                }
+            }
+        }
+    );
+
+
+
+    async function loadDashboardData() {
+        try {
+            showSpinner(true);
+            const response = await fetch('http://localhost:5000/dashboard_stats');
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Dashboard fetch failed:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    url: response.url,
+                    body: errorText
+                });
+                throw new Error('Failed to load dashboard data (see console for details)');
+            }
+            const data = await response.json();
+
+            // Update statistics
+            document.getElementById('totalTransactions').textContent = data.total_transactions;
+            document.getElementById('fraudCount').textContent = data.fraud_count;
+            document.getElementById('safeCount').textContent = data.total_transactions - data.fraud_count;
+            document.getElementById('fraudRate').textContent = data.fraud_rate.toFixed(1) + '%';
+
+            // Update fraud distribution chart
+            fraudDistributionChart.data.datasets[0].data = [data.total_transactions - data.fraud_count, data.fraud_count];
+            fraudDistributionChart.update();
+
+            // Update fraud by category chart (reuse fraudTrendsChart for bar chart)
+            fraudTrendsChart.config.type = 'bar';
+            fraudTrendsChart.data.labels = Object.keys(data.fraud_by_category);
+            fraudTrendsChart.data.datasets[0].label = 'Fraud by Category';
+            fraudTrendsChart.data.datasets[0].data = Object.values(data.fraud_by_category);
+            fraudTrendsChart.data.datasets[0].backgroundColor = '#dc3545';
+            fraudTrendsChart.options.scales.y = {
+                beginAtZero: true,
+                // No max, no percent sign
+            };
+            fraudTrendsChart.options.plugins = {
+                legend: { position: 'bottom' }
+            };
+            fraudTrendsChart.update();
+
+            // Update fraud by country chart (reuse geographicChart for bar chart)
+            geographicChart.config.type = 'bar';
+            geographicChart.data.labels = Object.keys(data.fraud_by_country);
+            geographicChart.data.datasets[0].label = 'Fraud by Country';
+            geographicChart.data.datasets[0].data = Object.values(data.fraud_by_country);
+            geographicChart.data.datasets[0].backgroundColor = '#0d6efd';
+            geographicChart.options.scales.y = {
+                beginAtZero: true,
+                // No max, no percent sign
+            };
+            geographicChart.options.plugins = {
+                legend: { position: 'bottom' }
+            };
+            geographicChart.update();
+
+        } catch (error) {
+            console.error('Error loading dashboard data:', error);
+            showToast('Failed to load dashboard data. Please try again.', 'error');
+        } finally {
+            showSpinner(false);
+        }
+    }
+
+    // Initial load
+    loadDashboardData();
+
+    // Refresh data every 5 minutes
+    setInterval(loadDashboardData, 300000);
+    </script>
+</body>
+</html> 

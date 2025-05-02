@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureScan - Check Transaction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        body { background: #f8f9fa; }
+        .main-card { max-width: 800px; margin: 40px auto; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); background: #fff; }
+        .footer { background: #fff; border-top: 1px solid #eee; padding: 1rem 0; text-align: center; color: #888; margin-top: 2rem; }
+        .navbar-brand .bi { font-size: 1.3rem !important; }
+        .navbar-brand { font-size: 1.5rem !important; padding-top: 0.2rem; padding-bottom: 0.2rem; }
+        .navbar { padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; }
+        .hero-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.7rem; }
+        .hero-lead { font-size: 1.1rem; margin-bottom: 1.2rem; }
+        .form-card { background: #f8f9fa; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 2rem 1.5rem; margin-top: 1.5rem; }
+        .form-label { font-weight: 500; }
+        .btn-primary { min-width: 160px; }
+        @media (max-width: 768px) {
+            .main-card { padding: 1.2rem 0.5rem !important; }
+            .hero-title { font-size: 1.5rem; }
+            .form-card { padding: 1rem 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand brand d-flex align-items-center">
+                <i class="bi bi-shield-lock-fill me-2" style="font-size: 1.3rem; color: #0d6efd;" aria-label="SecureScan logo"></i>
+                <span>SecureScan</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="smart_usage.html">Smart Usage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fraud_explained.html">Fraud Explained</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_score.html">Credit Score Tips</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="check.html">Check Transaction</a></li>
+                    <li class="nav-item"><a class="nav-link" href="batch.html">Batch Upload</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_faq.html">Credit Card FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container main-card p-4">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-4">
+            <div class="col-md-7">
+                <h1 class="hero-title mb-2">Check a Transaction for Fraud</h1>
+                <p class="hero-lead">Instantly assess the risk of a business transaction using SecureScan's advanced AI fraud detection.</p>
+            </div>
+            <div class="col-md-5 text-center">
+                <i class="bi bi-shield-check" style="font-size:3.5rem;color:#0d6efd;"></i>
+            </div>
+        </div>
+        <!-- Form Card -->
+        <div class="form-card mx-auto" style="max-width:600px;">
+            <form id="fraudForm" class="row g-3">
+                <div class="col-md-6">
+                    <label for="business_category" class="form-label">Business Category <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="E.g. retail, restaurant, e-commerce, etc."></i></label>
+                    <select class="form-select" id="business_category" required>
+                        <option value="">Select...</option>
+                        <option value="retail">Retail</option>
+                        <option value="restaurant">Restaurant</option>
+                        <option value="e-commerce">E-commerce</option>
+                        <option value="services">Services</option>
+                        <option value="travel">Travel</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a business category.</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="business_age" class="form-label">Business Age (years) <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="How many years has the business operated?"></i></label>
+                    <input type="number" class="form-control" id="business_age" required min="0" value="5">
+                    <div class="invalid-feedback">Please enter a valid business age.</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="country" class="form-label">Country <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="Country code, e.g. US, IN, GB, etc."></i></label>
+                    <select class="form-select" id="country" required>
+                        <option value="">Select...</option>
+                        <option value="US">United States</option>
+                        <option value="IN">India</option>
+                        <option value="GB">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <option value="AU">Australia</option>
+                        <option value="SG">Singapore</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a country.</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="monthly_revenue" class="form-label">Monthly Revenue ($) <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="Total monthly revenue in USD."></i></label>
+                    <input type="number" class="form-control" id="monthly_revenue" required min="0" value="10000">
+                    <div class="invalid-feedback">Please enter a valid revenue.</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="avg_transaction_value" class="form-label">Avg. Transaction Value ($) <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="Average value per transaction in USD."></i></label>
+                    <input type="number" class="form-control" id="avg_transaction_value" required min="0" value="100">
+                    <div class="invalid-feedback">Please enter a valid value.</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="chargeback_ratio" class="form-label">Chargeback Ratio <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="Ratio of chargebacks (0-1). E.g. 0.01 for 1%."></i></label>
+                    <input type="number" class="form-control" id="chargeback_ratio" required min="0" max="1" step="0.01" value="0.01">
+                    <div class="invalid-feedback">Please enter a value between 0 and 1.</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="negative_reviews_ratio" class="form-label">Negative Reviews Ratio <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="Ratio of negative reviews (0-1). E.g. 0.02 for 2%."></i></label>
+                    <input type="number" class="form-control" id="negative_reviews_ratio" required min="0" max="1" step="0.01" value="0.02">
+                    <div class="invalid-feedback">Please enter a value between 0 and 1.</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="previous_fraud_reports" class="form-label">Previous Fraud Reports <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="Number of previous fraud reports."></i></label>
+                    <input type="number" class="form-control" id="previous_fraud_reports" required min="0" value="0">
+                    <div class="invalid-feedback">Please enter a valid number.</div>
+                </div>
+                <div class="col-md-4">
+                    <label for="suspicious_activity_flag" class="form-label">Suspicious Activity Flag <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="Has suspicious activity been flagged? (Yes/No)"></i></label>
+                    <select class="form-select" id="suspicious_activity_flag" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <div class="invalid-feedback">Please select an option.</div>
+                </div>
+                <div class="col-12 d-grid gap-2 mt-2">
+                    <button type="submit" class="btn btn-primary btn-lg">Check Transaction</button>
+                </div>
+            </form>
+            <div id="result" class="alert mt-4 d-none"></div>
+        </div>
+    </div>
+    <div class="footer">&copy; 2024 SecureScan. All rights reserved.</div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+    <!-- Spinner Overlay -->
+    <div id="spinnerOverlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.7); z-index:2000; align-items:center; justify-content:center;">
+      <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function showSpinner(show=true) {
+      var spinner = document.getElementById('spinnerOverlay');
+      if (spinner) spinner.style.display = show ? 'flex' : 'none';
+    }
+    function showToast(message, type = 'info') {
+        const toastId = 'toast' + Date.now();
+        const icon = type === 'success' ? 'bi-check-circle-fill' : type === 'error' ? 'bi-exclamation-triangle-fill' : 'bi-info-circle-fill';
+        const bg = type === 'success' ? 'bg-success' : type === 'error' ? 'bg-danger' : 'bg-primary';
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center text-white ${bg}`;
+        toast.id = toastId;
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi ${icon} me-2"></i>${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+        document.getElementById('toastContainer').appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast, { delay: 3500 });
+        bsToast.show();
+        toast.addEventListener('hidden.bs.toast', () => toast.remove());
+    }
+    document.getElementById('fraudForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        let valid = true;
+        const form = e.target;
+        form.querySelectorAll('input,select').forEach(el => {
+          if (!el.checkValidity()) {
+            el.classList.add('is-invalid');
+            valid = false;
+          } else {
+            el.classList.remove('is-invalid');
+          }
+        });
+        if (!valid) return;
+        showSpinner(true);
+        const resultDiv = document.getElementById('result');
+        resultDiv.classList.remove('d-none');
+        const data = {
+            business_category: document.getElementById('business_category').value,
+            business_age: parseInt(document.getElementById('business_age').value),
+            country: document.getElementById('country').value,
+            monthly_revenue: parseFloat(document.getElementById('monthly_revenue').value),
+            avg_transaction_value: parseFloat(document.getElementById('avg_transaction_value').value),
+            chargeback_ratio: parseFloat(document.getElementById('chargeback_ratio').value),
+            negative_reviews_ratio: parseFloat(document.getElementById('negative_reviews_ratio').value),
+            previous_fraud_reports: parseInt(document.getElementById('previous_fraud_reports').value),
+            suspicious_activity_flag: parseInt(document.getElementById('suspicious_activity_flag').value)
+        };
+        try {
+            const response = await fetch('http://127.0.0.1:5000/check_merchant', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const res = await response.json();
+            if (response.ok) {
+                resultDiv.classList.remove('d-none');
+                resultDiv.className = 'alert mt-4 ' + (res.prediction === 1 ? 'alert-danger' : 'alert-success');
+                resultDiv.innerHTML = `<strong>${res.message}</strong><br>Fraud Probability: ${(res.probability*100).toFixed(2)}%`;
+                showToast('Transaction checked successfully!', 'success');
+            } else {
+                resultDiv.classList.remove('d-none');
+                resultDiv.className = 'alert mt-4 alert-warning';
+                resultDiv.textContent = res.error || res.message || 'Error occurred.';
+                showToast(res.error || res.message || 'Error occurred.', 'error');
+            }
+        } catch (err) {
+            resultDiv.classList.remove('d-none');
+            resultDiv.className = 'alert mt-4 alert-warning';
+            resultDiv.textContent = 'Server error. Please try again.';
+            showToast('Server error. Please try again.', 'error');
+        } finally {
+            showSpinner(false);
+        }
+    });
+    // Enable Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle=\"tooltip\"]'));
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+    </script>
+</body>
+</html> 

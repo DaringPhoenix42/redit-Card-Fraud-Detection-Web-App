@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureScan - Help & Support</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        body { background: #f8f9fa; }
+        .main-card { max-width: 900px; margin: 40px auto; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); background: #fff; }
+        .footer { background: #fff; border-top: 1px solid #eee; padding: 1rem 0; text-align: center; color: #888; margin-top: 2rem; }
+        .navbar-brand .bi { font-size: 1.3rem !important; }
+        .navbar-brand { font-size: 1.5rem !important; padding-top: 0.2rem; padding-bottom: 0.2rem; }
+        .navbar { padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; }
+        .hero-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.7rem; }
+        .hero-lead { font-size: 1.1rem; margin-bottom: 1.2rem; }
+        .help-icon { font-size: 3.5rem; color: #0d6efd; }
+        .accordion-button:not(.collapsed) { color: #0d6efd; background: #e7f1ff; }
+        .info-card { background: #f8f9fa; border-radius: 12px; padding: 2rem 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+        @media (max-width: 992px) {
+            .main-card { padding: 1.2rem 0.5rem !important; }
+            .hero-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand brand d-flex align-items-center">
+                <i class="bi bi-shield-lock-fill me-2" style="font-size: 1.3rem; color: #0d6efd;" aria-label="SecureScan logo"></i>
+                <span>SecureScan</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="smart_usage.html">Smart Usage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fraud_explained.html">Fraud Explained</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_score.html">Credit Score Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="check.html">Check Transaction</a></li>
+                    <li class="nav-item"><a class="nav-link" href="batch.html">Batch Upload</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_faq.html">Credit Card FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="help.html">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container main-card p-4">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-4">
+            <div class="col-md-9">
+                <h1 class="hero-title mb-2">Help & Support</h1>
+                <p class="hero-lead">Find answers, get support, and learn how to get the most out of SecureScan.</p>
+                <ul class="list-unstyled mt-3 mb-0">
+                    <li class="mb-2"><i class="bi bi-lightbulb text-primary me-2"></i> Browse our categorized FAQs below</li>
+                    <li class="mb-2"><i class="bi bi-envelope text-primary me-2"></i> Contact our support team for personalized help</li>
+                    <li><i class="bi bi-book text-primary me-2"></i> Explore our educational resources for credit card safety</li>
+                </ul>
+            </div>
+            <div class="col-md-3 text-center">
+                <i class="bi bi-question-circle help-icon"></i>
+            </div>
+        </div>
+
+        <!-- FAQ Accordion -->
+        <div class="mb-5">
+            <h2 class="fw-bold mb-3">Frequently Asked Questions</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq1"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">How does SecureScan detect fraud?</button></h2>
+                    <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">SecureScan uses advanced machine learning models trained on real-world transaction and business data to assess the risk of fraud in real time.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq2"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">What should I do if I get a server error?</button></h2>
+                    <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Check that the backend server is running and accessible. If the problem persists, contact support below.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq3"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">How do I use batch upload?</button></h2>
+                    <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">You can upload a CSV file containing multiple transactions for batch processing. The file should include business category, age, country, monthly revenue, and other required fields. Results will be displayed in a table and can be exported.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq4"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">How do I view transaction history?</button></h2>
+                    <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Visit the History page to view all past predictions. You can filter by prediction type, business category, country, or batch ID. Results can be exported to CSV for further analysis.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq5"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">How do I interpret the fraud probability?</button></h2>
+                    <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">A higher fraud probability means the transaction is more likely to be fraudulent. Use this information to flag or review suspicious transactions.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq6"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">How do I contact support?</button></h2>
+                    <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">You can use the contact form below or email <a href="mailto:support@securescan.com">support@securescan.com</a> for assistance.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq7"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7">Where can I learn more about credit card safety?</button></h2>
+                    <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">Visit our educational pages: <a href="credit_score.html">Credit Score Tips</a>, <a href="smart_usage.html">Smart Usage</a>, <a href="fraud_explained.html">Fraud Explained</a>, and <a href="credit_faq.html">Credit Card FAQs</a>.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Support Section -->
+        <div class="mb-5">
+            <h2 class="fw-bold mb-3">Contact Support</h2>
+            <div class="row">
+                <div class="col-md-7">
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <div id="contactStatus" class="mt-3"></div>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                    <div class="info-card h-100">
+                        <h5 class="fw-bold mb-2"><i class="bi bi-envelope me-2"></i>Email</h5>
+                        <p class="mb-2"><a href="mailto:support@securescan.com">support@securescan.com</a></p>
+                        <h5 class="fw-bold mb-2"><i class="bi bi-telephone me-2"></i>Phone</h5>
+                        <p class="mb-2">+91-800-555-SECURE</p>
+                        <h5 class="fw-bold mb-2"><i class="bi bi-clock me-2"></i>Support Hours</h5>
+                        <p class="mb-0">Mon-Fri: 9am - 6pm (EST)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">&copy; 2024 SecureScan. All rights reserved.</div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+    <button id="backToTop" title="Back to Top" onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="bi bi-arrow-up"></i></button>
+    <div id="spinnerOverlay"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function showToast(message, type = 'info') {
+        const toastId = 'toast' + Date.now();
+        const icon = type === 'success' ? 'bi-check-circle-fill' : type === 'error' ? 'bi-exclamation-triangle-fill' : 'bi-info-circle-fill';
+        const bg = type === 'success' ? 'bg-success' : type === 'error' ? 'bg-danger' : 'bg-primary';
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center text-white ${bg}`;
+        toast.id = toastId;
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi ${icon} me-2"></i>${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+        document.getElementById('toastContainer').appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast, { delay: 3500 });
+        bsToast.show();
+        toast.addEventListener('hidden.bs.toast', () => toast.remove());
+    }
+    // Back to Top logic
+    window.addEventListener('scroll', function() {
+      document.getElementById('backToTop').style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const status = document.getElementById('contactStatus');
+        status.textContent = '';
+        status.className = '';
+        // Simulate sending
+        setTimeout(() => {
+            status.textContent = 'Thank you! Your message has been sent. Our support team will contact you soon.';
+            status.className = 'alert alert-success';
+            document.getElementById('contactForm').reset();
+        }, 1200);
+    });
+    </script>
+</body>
+</html> 

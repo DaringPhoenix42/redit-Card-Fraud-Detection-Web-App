@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fraud Explained | SecureScan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        .fraud-icon { font-size: 2.2rem; color: #dc3545; }
+        .section-img { max-width: 90%; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 1.2rem; }
+        .tip-card { background: #f1f5f9; border-radius: 12px; margin-bottom: 1.2rem; transition: transform 0.2s; }
+        .tip-card:hover { transform: translateY(-5px); }
+        .navbar-brand .bi { font-size: 1.3rem !important; }
+        .navbar-brand { font-size: 1.5rem !important; padding-top: 0.2rem; padding-bottom: 0.2rem; }
+        .navbar { padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; }
+        .main-card { padding: 2.2rem 1.2rem !important; }
+        .hero-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.7rem; }
+        .hero-lead { font-size: 1.1rem; margin-bottom: 1.2rem; }
+        @media (max-width: 768px) {
+            .main-card { padding: 1.2rem 0.5rem !important; }
+            .hero-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand brand d-flex align-items-center">
+                <i class="bi bi-shield-lock-fill me-2" style="font-size: 1.7rem; color: #0d6efd;" aria-label="SecureScan logo"></i>
+                <span>SecureScan</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="smart_usage.html">Smart Usage</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="fraud_explained.html">Fraud Explained</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_score.html">Credit Score Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="check.html">Check Transaction</a></li>
+                    <li class="nav-item"><a class="nav-link" href="batch.html">Batch Upload</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_faq.html">Credit Card FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-card p-5 mt-4">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-4">
+            <div class="col-md-6">
+                <h1 class="hero-title">Understanding Credit Card Fraud</h1>
+                <p class="hero-lead">See how SecureScan protects your transactions and keeps your financial data secure.</p>
+                <div class="d-flex gap-3 mt-3">
+                    <a href="dashboard.html" class="btn btn-primary">Try SecureScan</a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Fraud Detection" class="section-img">
+            </div>
+        </div>
+
+        <!-- Key Fraud Facts/Features (single row) -->
+        <div class="row text-center py-4 g-4" style="background:#f1f5f9;">
+            <div class="col-md-4 col-6">
+                <div class="fraud-icon mb-2"><i class="bi bi-shield-exclamation"></i></div>
+                <h6 class="fw-bold">$32B+ Prevented</h6>
+                <p class="small">Annual fraud losses stopped by modern detection systems.</p>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="fraud-icon mb-2"><i class="bi bi-person-badge"></i></div>
+                <h6 class="fw-bold">99.9% Accuracy</h6>
+                <p class="small">AI models catch nearly all fraudulent transactions.</p>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="fraud-icon mb-2"><i class="bi bi-credit-card"></i></div>
+                <h6 class="fw-bold">50ms Detection</h6>
+                <p class="small">Fraud is flagged in real time, before it impacts you.</p>
+            </div>
+        </div>
+
+        <!-- Concise Protection Tips Section -->
+        <div class="row mt-4">
+            <div class="col-md-8 mx-auto">
+                <h3 class="fw-bold mb-3">How to Protect Yourself</h3>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item">Enable transaction alerts and monitor your statements.</li>
+                    <li class="list-group-item">Use strong, unique passwords and two-factor authentication.</li>
+                    <li class="list-group-item">Never share your card details or PIN.</li>
+                    <li class="list-group-item">Shop only on secure, trusted websites.</li>
+                </ul>
+                <div class="alert alert-info mt-3" role="alert">
+                    <strong>Tip:</strong> Stay vigilant—most fraud can be prevented with smart habits!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">&copy; 2024 SecureScan. All rights reserved.</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.js"></script>
+</body>
+</html> 

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Credit Card Usage | SecureScan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        .feature-icon { font-size: 2.2rem; color: #3498db; }
+        .section-img { max-width: 90%; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 1.2rem; }
+        .tip-card { 
+            background: #f8f9fa; 
+            border-radius: 12px; 
+            margin-bottom: 1.2rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        .tip-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 1.1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.7rem;
+            padding: 0.7rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .checklist-item i {
+            color: #28a745;
+            margin-right: 0.7rem;
+            font-size: 1.1rem;
+        }
+        .category-title {
+            position: relative;
+            padding-left: 0.7rem;
+            margin-bottom: 1.2rem;
+        }
+        .category-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+        .navbar-brand .bi {
+            font-size: 1.3rem !important;
+        }
+        .navbar-brand {
+            font-size: 1.5rem !important;
+            padding-top: 0.2rem;
+            padding-bottom: 0.2rem;
+        }
+        .navbar {
+            padding-top: 0.3rem !important;
+            padding-bottom: 0.3rem !important;
+        }
+        .main-card {
+            padding: 2.2rem 1.2rem !important;
+        }
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+        }
+        .hero-lead {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+        }
+        @media (max-width: 768px) {
+            .main-card { padding: 1.2rem 0.5rem !important; }
+            .hero-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand brand d-flex align-items-center">
+                <i class="bi bi-shield-lock-fill me-2" style="font-size: 1.7rem; color: #0d6efd;" aria-label="SecureScan logo"></i>
+                <span>SecureScan</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="smart_usage.html">Smart Usage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fraud_explained.html">Fraud Explained</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_score.html">Credit Score Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="check.html">Check Transaction</a></li>
+                    <li class="nav-item"><a class="nav-link" href="batch.html">Batch Upload</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_faq.html">Credit Card FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-card p-5 mt-4">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-4">
+            <div class="col-md-6">
+                <h1 class="hero-title">Smart Credit Card Usage</h1>
+                <p class="hero-lead">Learn how to use your credit card wisely, maximize benefits, and avoid common pitfalls.</p>
+                <div class="d-flex gap-3 mt-3">
+                    <a href="#best-practices" class="btn btn-primary">View Best Practices</a>
+                    <a href="dashboard.html" class="btn btn-outline-secondary">Try SecureScan</a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80" alt="Smart Credit Card Usage" class="section-img">
+            </div>
+        </div>
+
+        <!-- Key Statistics (single row, like Home features) -->
+        <div class="row text-center py-4 g-4" style="background:#f1f5f9;">
+            <div class="col-md-4 col-6">
+                <div class="feature-icon mb-2"><i class="bi bi-graph-up"></i></div>
+                <h6 class="fw-bold">Keep Utilization Low</h6>
+                <p class="small">Aim for under 30% of your credit limit for a healthy score.</p>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="feature-icon mb-2"><i class="bi bi-calendar-check"></i></div>
+                <h6 class="fw-bold">Always Pay On Time</h6>
+                <p class="small">Set up reminders or auto-pay to never miss a due date.</p>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="feature-icon mb-2"><i class="bi bi-gift"></i></div>
+                <h6 class="fw-bold">Maximize Rewards</h6>
+                <p class="small">Use your card for planned purchases to earn points and cashback.</p>
+            </div>
+        </div>
+
+        <!-- Concise Best Practices Section -->
+        <div class="row mt-4">
+            <div class="col-md-8 mx-auto">
+                <h3 class="fw-bold mb-3">Best Practices for Smart Usage</h3>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item">Pay your balance in full every month to avoid interest charges.</li>
+                    <li class="list-group-item">Monitor your statements for unauthorized charges.</li>
+                    <li class="list-group-item">Use credit cards for planned, budgeted expenses only.</li>
+                    <li class="list-group-item">Take advantage of rewards, but don't overspend to earn them.</li>
+                </ul>
+                <div class="alert alert-info mt-3" role="alert">
+                    <strong>Tip:</strong> Smart usage helps you build credit and enjoy card benefits safely!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">&copy; 2024 SecureScan. All rights reserved.</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.js"></script>
+</body>
+</html> 

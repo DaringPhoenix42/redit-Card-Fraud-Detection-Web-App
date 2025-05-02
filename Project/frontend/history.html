@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureScan - History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        body { background: #f8f9fa; }
+        .main-card { max-width: 1200px; margin: 40px auto; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); background: #fff; }
+        .footer { background: #fff; border-top: 1px solid #eee; padding: 1rem 0; text-align: center; color: #888; margin-top: 2rem; }
+        .navbar-brand .bi { font-size: 1.3rem !important; }
+        .navbar-brand { font-size: 1.5rem !important; padding-top: 0.2rem; padding-bottom: 0.2rem; }
+        .navbar { padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; }
+        .hero-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.7rem; }
+        .hero-lead { font-size: 1.1rem; margin-bottom: 1.2rem; }
+        .filter-card, .history-card { background: #f8f9fa; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 2rem 1.5rem; margin-top: 1.5rem; }
+        .form-label { font-weight: 500; }
+        .btn-primary { min-width: 160px; }
+        .history-card { margin-top: 2rem; }
+        #backToTop { display:none; position:fixed; bottom:30px; right:30px; z-index:1050; background:#0d6efd; color:#fff; border:none; border-radius:50%; width:44px; height:44px; font-size:1.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.12); }
+        #backToTop:hover { background:#0b5ed7; }
+        #spinnerOverlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.7); z-index:2000; align-items:center; justify-content:center; }
+        .badge { font-size: 0.85rem; padding: 0.5em 0.8em; }
+        @media (max-width: 992px) {
+            .main-card { padding: 1.2rem 0.5rem !important; }
+            .hero-title { font-size: 1.5rem; }
+            .filter-card, .history-card { padding: 1rem 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand brand d-flex align-items-center">
+                <i class="bi bi-shield-lock-fill me-2" style="font-size: 1.3rem; color: #0d6efd;" aria-label="SecureScan logo"></i>
+                <span>SecureScan</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="smart_usage.html">Smart Usage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fraud_explained.html">Fraud Explained</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_score.html">Credit Score Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="check.html">Check Transaction</a></li>
+                    <li class="nav-item"><a class="nav-link" href="batch.html">Batch Upload</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="history.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_faq.html">Credit Card FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-card p-4">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-4">
+            <div class="col-md-8">
+                <h1 class="hero-title mb-2">Transaction History</h1>
+                <p class="hero-lead">View and analyze your past fraud detection results. Filter, search, and export your transaction history for detailed insights.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="bi bi-clock-history" style="font-size:3.5rem;color:#0d6efd;"></i>
+            </div>
+        </div>
+
+        <!-- Filter Card -->
+        <div class="filter-card">
+            <h5 class="mb-3"><i class="bi bi-funnel me-2"></i>Filter History</h5>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label class="form-label">Prediction</label>
+                        <select class="form-select" id="predictionFilter">
+                            <option value="">All</option>
+                            <option value="1">Fraud</option>
+                            <option value="0">Safe</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label class="form-label">Business Category</label>
+                        <input type="text" class="form-control" id="categoryFilter" placeholder="Filter by category">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label class="form-label">Country</label>
+                        <input type="text" class="form-control" id="countryFilter" placeholder="Filter by country">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label class="form-label">Batch ID</label>
+                        <input type="text" class="form-control" id="batchFilter" placeholder="Filter by batch">
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-primary" id="applyFilters">
+                    <i class="bi bi-funnel"></i> Apply Filters
+                </button>
+                <button class="btn btn-outline-secondary" id="resetFilters">
+                    <i class="bi bi-x-circle"></i> Reset
+                </button>
+                <button class="btn btn-success" id="exportHistory">
+                    <i class="bi bi-download"></i> Export to CSV
+                </button>
+            </div>
+        </div>
+
+        <!-- History Card -->
+        <div class="history-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0"><i class="bi bi-table me-2"></i>Prediction History</h5>
+                <div class="text-muted" id="totalCount"></div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <input type="text" class="form-control w-auto" id="tableSearch" placeholder="Search history..." aria-label="Search history" style="max-width: 250px;">
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th role="button" tabindex="0" aria-label="Sort by Timestamp" data-sort="timestamp">Timestamp <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Business Category" data-sort="business_category">Business Category <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Country" data-sort="country">Country <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Monthly Revenue" data-sort="monthly_revenue">Monthly Revenue <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Prediction" data-sort="prediction">Prediction <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Probability" data-sort="probability">Probability <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Batch ID" data-sort="batch_id">Batch ID <i class="bi bi-arrow-down-up"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center" id="pagination"></ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="footer">&copy; 2024 SecureScan. All rights reserved.</div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+    <!-- Spinner Overlay -->
+    <div id="spinnerOverlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.7); z-index:2000; align-items:center; justify-content:center;">
+      <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+    </div>
+    <button id="backToTop" title="Back to Top" onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="bi bi-arrow-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function showSpinner(show=true) {
+      var spinner = document.getElementById('spinnerOverlay');
+      if (spinner) spinner.style.display = show ? 'flex' : 'none';
+    }
+    function showToast(message, type = 'info') {
+        const toastId = 'toast' + Date.now();
+        const icon = type === 'success' ? 'bi-check-circle-fill' : type === 'error' ? 'bi-exclamation-triangle-fill' : 'bi-info-circle-fill';
+        const bg = type === 'success' ? 'bg-success' : type === 'error' ? 'bg-danger' : 'bg-primary';
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center text-white ${bg}`;
+        toast.id = toastId;
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi ${icon} me-2"></i>${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+        document.getElementById('toastContainer').appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast, { delay: 3500 });
+        bsToast.show();
+        toast.addEventListener('hidden.bs.toast', () => toast.remove());
+    }
+    // Back to Top logic
+    window.addEventListener('scroll', function() {
+      document.getElementById('backToTop').style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+    // Enable Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    let currentPage = 1;
+    const perPage = 10;
+    let totalPages = 1;
+    let filters = {};
+    let tableData = [];
+    let sortCol = 'timestamp';
+    let sortDir = 'desc';
+
+    // Table sorting and searching
+    function renderTable(data) {
+        const tbody = document.getElementById('historyTable').querySelector('tbody');
+        tbody.innerHTML = '';
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${new Date(row.timestamp).toLocaleString()}</td>
+                <td>${row.business_category}</td>
+                <td>${row.country}</td>
+                <td>${row.monthly_revenue.toLocaleString()}</td>
+                <td>
+                    <span class="badge ${row.prediction ? 'bg-danger' : 'bg-success'}">
+                        ${row.prediction ? 'Fraud' : 'Safe'}
+                    </span>
+                </td>
+                <td>${(row.probability * 100).toFixed(1)}%</td>
+                <td>${row.batch_id || '-'}</td>
+            `;
+            tr.classList.add('new-row');
+            tbody.appendChild(tr);
+        });
+    }
+
+    function sortTable(col) {
+        if (sortCol === col) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        else { sortCol = col; sortDir = 'asc'; }
+        tableData.sort((a, b) => {
+            let v1 = a[col], v2 = b[col];
+            if (typeof v1 === 'string') v1 = v1.toLowerCase();
+            if (typeof v2 === 'string') v2 = v2.toLowerCase();
+            if (v1 < v2) return sortDir === 'asc' ? -1 : 1;
+            if (v1 > v2) return sortDir === 'asc' ? 1 : -1;
+            return 0;
+        });
+        renderTable(tableData);
+    }
+
+    document.querySelectorAll('#historyTable thead th').forEach(th => {
+        th.addEventListener('click', () => sortTable(th.dataset.sort));
+        th.addEventListener('keydown', e => { if (e.key === 'Enter') sortTable(th.dataset.sort); });
+    });
+
+    document.getElementById('tableSearch').addEventListener('input', function() {
+        const q = this.value.toLowerCase();
+        renderTable(tableData.filter(row =>
+            Object.values(row).some(val => String(val).toLowerCase().includes(q))
+        ));
+    });
+
+    async function loadHistory(page = 1) {
+        try {
+            showSpinner(true);
+            // Build query string
+            const queryParams = new URLSearchParams({
+                page: page,
+                per_page: perPage,
+                ...filters
+            });
+            const response = await fetch(`http://localhost:5000/history?${queryParams}`);
+            if (!response.ok) throw new Error('Failed to load history');
+            const data = await response.json();
+            totalPages = data.total_pages;
+            currentPage = data.page;
+            document.getElementById('totalCount').textContent = 
+                `Total Records: ${data.total}`;
+            tableData = data.results;
+            sortTable(sortCol); // will call renderTable
+            // Update pagination controls
+            updatePagination();
+        } catch (error) {
+            console.error('Error loading history:', error);
+            showToast('Failed to load history. Please try again.', 'error');
+        } finally {
+            showSpinner(false);
+        }
+    }
+
+    function updatePagination() {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+
+        // Previous button
+        const prevLi = document.createElement('li');
+        prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+        prevLi.innerHTML = `
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        `;
+        prevLi.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage > 1) loadHistory(currentPage - 1);
+        });
+        pagination.appendChild(prevLi);
+
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+            li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            li.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadHistory(i);
+            });
+            pagination.appendChild(li);
+        }
+
+        // Next button
+        const nextLi = document.createElement('li');
+        nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+        nextLi.innerHTML = `
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        `;
+        nextLi.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage < totalPages) loadHistory(currentPage + 1);
+        });
+        pagination.appendChild(nextLi);
+    }
+
+    // Filter handlers
+    document.getElementById('applyFilters').addEventListener('click', () => {
+        filters = {
+            prediction: document.getElementById('predictionFilter').value,
+            business_category: document.getElementById('categoryFilter').value,
+            country: document.getElementById('countryFilter').value,
+            batch_id: document.getElementById('batchFilter').value
+        };
+        loadHistory(1);
+    });
+
+    document.getElementById('resetFilters').addEventListener('click', () => {
+        document.getElementById('predictionFilter').value = '';
+        document.getElementById('categoryFilter').value = '';
+        document.getElementById('countryFilter').value = '';
+        document.getElementById('batchFilter').value = '';
+        filters = {};
+        loadHistory(1);
+    });
+
+    document.getElementById('exportHistory').addEventListener('click', async () => {
+        try {
+            showSpinner(true);
+            // Get all records with current filters
+            const queryParams = new URLSearchParams({
+                per_page: 1000, // Get all records
+                ...filters
+            });
+
+            const response = await fetch(`http://localhost:5000/history?${queryParams}`);
+            if (!response.ok) throw new Error('Failed to export history');
+
+            const data = await response.json();
+            
+            // Convert to CSV
+            const headers = [
+                'Timestamp', 'Business Category', 'Country', 'Monthly Revenue',
+                'Prediction', 'Probability', 'Batch ID'
+            ];
+            
+            const csvRows = [
+                headers.join(','),
+                ...data.results.map(row => [
+                    new Date(row.timestamp).toLocaleString(),
+                    row.business_category,
+                    row.country,
+                    row.monthly_revenue,
+                    row.prediction ? 'Fraud' : 'Safe',
+                    (row.probability * 100).toFixed(1) + '%',
+                    row.batch_id || ''
+                ].map(cell => `"${cell}"`).join(','))
+            ];
+
+            const csvContent = csvRows.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `fraud_detection_history_${new Date().toISOString().slice(0,10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+        } catch (error) {
+            console.error('Error exporting history:', error);
+            showToast('Failed to export history. Please try again.', 'error');
+        } finally {
+            showSpinner(false);
+        }
+    });
+
+    // Initial load
+    loadHistory();
+    </script>
+</body>
+</html> 

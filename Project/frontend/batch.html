@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureScan - Batch Upload</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        body { background: #f8f9fa; }
+        .main-card { max-width: 1100px; margin: 40px auto; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); background: #fff; }
+        .footer { background: #fff; border-top: 1px solid #eee; padding: 1rem 0; text-align: center; color: #888; margin-top: 2rem; }
+        .navbar-brand .bi { font-size: 1.3rem !important; }
+        .navbar-brand { font-size: 1.5rem !important; padding-top: 0.2rem; padding-bottom: 0.2rem; }
+        .navbar { padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; }
+        .hero-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.7rem; }
+        .hero-lead { font-size: 1.1rem; margin-bottom: 1.2rem; }
+        .form-card, .status-card, .results-card { background: #f8f9fa; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 2rem 1.5rem; margin-top: 1.5rem; }
+        .form-label { font-weight: 500; }
+        .btn-primary { min-width: 160px; }
+        .results-card { margin-top: 2rem; }
+        #backToTop { display:none; position:fixed; bottom:30px; right:30px; z-index:1050; background:#0d6efd; color:#fff; border:none; border-radius:50%; width:44px; height:44px; font-size:1.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.12); }
+        #backToTop:hover { background:#0b5ed7; }
+        #spinnerOverlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.7); z-index:2000; align-items:center; justify-content:center; }
+        @media (max-width: 992px) {
+            .main-card { padding: 1.2rem 0.5rem !important; }
+            .hero-title { font-size: 1.5rem; }
+            .form-card, .status-card, .results-card { padding: 1rem 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand brand d-flex align-items-center">
+                <i class="bi bi-shield-lock-fill me-2" style="font-size: 1.3rem; color: #0d6efd;" aria-label="SecureScan logo"></i>
+                <span>SecureScan</span>
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="smart_usage.html">Smart Usage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fraud_explained.html">Fraud Explained</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_score.html">Credit Score Tips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="check.html">Check Transaction</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="batch.html">Batch Upload</a></li>
+                    <li class="nav-item"><a class="nav-link" href="history.html">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="credit_faq.html">Credit Card FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="help.html">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container main-card p-4">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-4">
+            <div class="col-md-8">
+                <h1 class="hero-title mb-2">Batch Upload Fraud Check</h1>
+                <p class="hero-lead">Upload a CSV file to instantly assess the risk of multiple business transactions using SecureScan's advanced AI fraud detection.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="bi bi-cloud-upload" style="font-size:3.5rem;color:#0d6efd;"></i>
+            </div>
+        </div>
+        <!-- Form and Status Row -->
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="form-card">
+                    <form id="uploadForm">
+                        <div class="mb-3">
+                            <label for="csvFile" class="form-label">Upload CSV File <i class="bi bi-info-circle" data-bs-toggle="tooltip" title="CSV must include all required columns. See below for details."></i></label>
+                            <input type="file" class="form-control" id="csvFile" accept=".csv" required aria-label="Upload CSV file">
+                            <div class="form-text">
+                                CSV should contain columns: <strong>business_category</strong>, <strong>business_age</strong>, <strong>country</strong>, <strong>monthly_revenue</strong>, <strong>avg_transaction_value</strong>, <strong>chargeback_ratio</strong>, <strong>negative_reviews_ratio</strong>, <strong>previous_fraud_reports</strong>, <strong>suspicious_activity_flag</strong>.<br>
+                                <span class="text-muted">Business Category: retail, restaurant, e-commerce, services, travel, other.<br>Country: US, IN, GB, CA, AU, SG, other.<br>Suspicious Activity Flag: 0 (No), 1 (Yes).</span>
+                            </div>
+                            <div class="invalid-feedback" id="fileError">Please select a valid CSV file.</div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-3">
+                            <button type="submit" class="btn btn-primary" id="uploadBtn">
+                                <i class="bi bi-upload"></i> Upload and Process
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary ms-2" id="downloadSample" aria-label="Download sample CSV">
+                                <i class="bi bi-download"></i> Download Sample CSV
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="status-card">
+                    <h5 class="mb-3"><i class="bi bi-clipboard-data me-2"></i>Upload Status</h5>
+                    <div id="uploadStatus" class="d-none">
+                        <div class="progress mb-3">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <p class="mb-0" id="statusText">Processing...</p>
+                    </div>
+                    <div id="uploadResult" class="d-none mt-3">
+                        <h6>Results</h6>
+                        <p>Total Processed: <span id="totalProcessed"></span></p>
+                        <p>Success Rate: <span id="successRate"></span></p>
+                        <button class="btn btn-success btn-sm" id="downloadResults">
+                            <i class="bi bi-download"></i> Download Results
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Results Preview -->
+        <div class="results-card mt-4">
+            <h5 class="mb-3"><i class="bi bi-table me-2"></i>Results Preview</h5>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <input type="text" class="form-control w-auto" id="resultsSearch" placeholder="Search results..." aria-label="Search batch results" style="max-width: 250px;">
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped" id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th role="button" tabindex="0" aria-label="Sort by Business Category" data-sort="business_category">Business Category <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Country" data-sort="country">Country <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Monthly Revenue" data-sort="monthly_revenue">Monthly Revenue <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Prediction" data-sort="prediction">Prediction <i class="bi bi-arrow-down-up"></i></th>
+                            <th role="button" tabindex="0" aria-label="Sort by Probability" data-sort="probability">Probability <i class="bi bi-arrow-down-up"></i></th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="footer">&copy; 2024 SecureScan. All rights reserved.</div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+    <!-- Spinner Overlay -->
+    <div id="spinnerOverlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(255,255,255,0.7); z-index:2000; align-items:center; justify-content:center;">
+      <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+    </div>
+    <button id="backToTop" title="Back to Top" onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="bi bi-arrow-up"></i></button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function showSpinner(show=true) {
+      var spinner = document.getElementById('spinnerOverlay');
+      if (spinner) spinner.style.display = show ? 'flex' : 'none';
+    }
+    function showToast(message, type = 'info') {
+        const toastId = 'toast' + Date.now();
+        const icon = type === 'success' ? 'bi-check-circle-fill' : type === 'error' ? 'bi-exclamation-triangle-fill' : 'bi-info-circle-fill';
+        const bg = type === 'success' ? 'bg-success' : type === 'error' ? 'bg-danger' : 'bg-primary';
+        const toast = document.createElement('div');
+        toast.className = `toast align-items-center text-white ${bg}`;
+        toast.id = toastId;
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        toast.innerHTML = `
+            <div class="d-flex">
+                <div class="toast-body"><i class="bi ${icon} me-2"></i>${message}</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+        document.getElementById('toastContainer').appendChild(toast);
+        const bsToast = new bootstrap.Toast(toast, { delay: 3500 });
+        bsToast.show();
+        toast.addEventListener('hidden.bs.toast', () => toast.remove());
+    }
+    // Back to Top logic
+    window.addEventListener('scroll', function() {
+      document.getElementById('backToTop').style.display = window.scrollY > 200 ? 'block' : 'none';
+    });
+    // Enable Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+    // Sample CSV download
+    document.getElementById('downloadSample').addEventListener('click', function() {
+        const headers = [
+            'business_category','business_age','country','monthly_revenue','avg_transaction_value','chargeback_ratio','negative_reviews_ratio','previous_fraud_reports','suspicious_activity_flag'
+        ];
+        const sample = [
+            'retail', '5', 'US', '10000', '100', '0.01', '0.02', '0', '0'
+        ];
+        const csv = headers.join(',') + '\n' + sample.join(',');
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'sample_batch_upload.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    });
+    // Table sorting and searching for batch results
+    let batchTableData = [];
+    let batchSortCol = 'business_category';
+    let batchSortDir = 'asc';
+    function renderBatchTable(data) {
+        const tbody = document.getElementById('resultsTable').querySelector('tbody');
+        tbody.innerHTML = '';
+        data.forEach(r => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${r.business_category || '-'}</td>
+                <td>${r.country || '-'}</td>
+                <td>${r.monthly_revenue || '-'}</td>
+                <td>${r.prediction !== undefined ? (r.prediction ? 'Fraud' : 'Safe') : '-'}</td>
+                <td>${r.probability !== undefined ? (r.probability * 100).toFixed(1) + '%' : '-'}</td>
+                <td>${r.error ? `<span class="text-danger">${r.error}</span>` : `<span class="text-success">Success</span>`}</td>
+            `;
+            tr.classList.add('new-row');
+            tbody.appendChild(tr);
+        });
+    }
+    function sortBatchTable(col) {
+        if (batchSortCol === col) batchSortDir = batchSortDir === 'asc' ? 'desc' : 'asc';
+        else { batchSortCol = col; batchSortDir = 'asc'; }
+        batchTableData.sort((a, b) => {
+            let v1 = a.input?.[col] ?? '', v2 = b.input?.[col] ?? '';
+            if (col === 'prediction') { v1 = a.prediction ?? ''; v2 = b.prediction ?? ''; }
+            if (col === 'probability') { v1 = a.probability ?? 0; v2 = b.probability ?? 0; }
+            if (typeof v1 === 'string') v1 = v1.toLowerCase();
+            if (typeof v2 === 'string') v2 = v2.toLowerCase();
+            if (v1 < v2) return batchSortDir === 'asc' ? -1 : 1;
+            if (v1 > v2) return batchSortDir === 'asc' ? 1 : -1;
+            return 0;
+        });
+        renderBatchTable(batchTableData);
+    }
+    document.querySelectorAll('#resultsTable thead th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => sortBatchTable(th.dataset.sort));
+        th.addEventListener('keydown', e => { if (e.key === 'Enter') sortBatchTable(th.dataset.sort); });
+    });
+    document.getElementById('resultsSearch').addEventListener('input', function() {
+        const q = this.value.toLowerCase();
+        renderBatchTable(batchTableData.filter(r =>
+            Object.values(r.input || {}).some(val => String(val).toLowerCase().includes(q)) ||
+            (r.prediction !== undefined && (r.prediction ? 'fraud' : 'safe').includes(q)) ||
+            (r.error && r.error.toLowerCase().includes(q))
+        ));
+    });
+    // Inline validation for file
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fileInput = document.getElementById('csvFile');
+        const file = fileInput.files[0];
+        const fileError = document.getElementById('fileError');
+        fileInput.classList.remove('is-invalid');
+        fileError.style.display = 'none';
+        if (!file || !file.name.endsWith('.csv')) {
+            fileInput.classList.add('is-invalid');
+            fileError.textContent = 'Please select a valid CSV file.';
+            fileError.style.display = 'block';
+            showToast('Please select a valid CSV file.', 'error');
+            return;
+        }
+        showSpinner(true);
+        const formData = new FormData();
+        formData.append('file', file);
+        // Show progress
+        const uploadStatus = document.getElementById('uploadStatus');
+        const uploadResult = document.getElementById('uploadResult');
+        const progressBar = uploadStatus.querySelector('.progress-bar');
+        const statusText = document.getElementById('statusText');
+        uploadStatus.classList.remove('d-none');
+        uploadResult.classList.add('d-none');
+        progressBar.style.width = '0%';
+        statusText.textContent = 'Processing file...';
+        try {
+            const response = await fetch('http://localhost:5000/batch_upload', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            if (data.status === 'success') {
+                progressBar.style.width = '100%';
+                statusText.textContent = 'Processing complete!';
+                // Update results
+                batchTableData = data.results;
+                renderBatchTable(batchTableData);
+                // Show success message
+                showToast('File processed successfully!', 'success');
+                // Update result stats
+                document.getElementById('totalProcessed').textContent = data.results.length;
+                const successCount = data.results.filter(r => !r.error).length;
+                document.getElementById('successRate').textContent = 
+                    ((successCount / data.results.length) * 100).toFixed(1) + '%';
+                uploadResult.classList.remove('d-none');
+            } else {
+                throw new Error(data.error || 'Failed to process file');
+            }
+        } catch (error) {
+            statusText.textContent = 'Error processing file';
+            showToast(error.message, 'error');
+        } finally {
+            showSpinner(false);
+        }
+    });
+    document.getElementById('downloadResults').addEventListener('click', () => {
+        const table = document.getElementById('resultsTable');
+        const rows = Array.from(table.querySelectorAll('tr'));
+        const csvContent = rows.map(row => {
+            return Array.from(row.cells)
+                .map(cell => `"${cell.textContent.trim()}"`)
+                .join(',');
+        }).join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `fraud_detection_results_${new Date().toISOString().slice(0,10)}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    });
+    </script>
+</body>
+</html> 
